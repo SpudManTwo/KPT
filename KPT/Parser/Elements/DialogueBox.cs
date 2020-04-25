@@ -14,6 +14,7 @@ namespace KPT.Parser.Elements
         string name;
         string dialogue;
         bool translated = false;
+        static List<string> failedTranslatedNames = new List<string>();
 
         public bool Read(BinaryReader br)
         {
@@ -36,7 +37,14 @@ namespace KPT.Parser.Elements
 
         public void SetName(string newName)
         {
-            name = newName;
+            string temp = Constants.TRANSLATED_NAME_TAGS.ContainsKey(newName) ? Constants.TRANSLATED_NAME_TAGS[newName] : newName;
+            if(temp.Equals(newName) && !failedTranslatedNames.Contains(newName) && !Constants.TRANSLATED_NAME_TAGS.ContainsValue(newName))
+            {
+                //TODO Remove before final release.
+                //We failed to translate the nametag. This is only for development and should be removed for the final release
+                failedTranslatedNames.Add(newName);
+            }
+            name = temp;
         }
 
         public void AddStrings(StringCollection collection)

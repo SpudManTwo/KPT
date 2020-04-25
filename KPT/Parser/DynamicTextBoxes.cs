@@ -103,17 +103,12 @@ namespace KPT.Parser
                 {
                     var temp = instruction as IDialogueBox;
                     string dialogue = temp.GetDialogue();
+                    //This forces a translated name check right before insertion. Better to do it here than earlier because it is one of our matching points for where to insert. -Spud
+                    temp.SetName(temp.GetName());
                     var boxes = ProcessDialogue(dialogue);
-                    if (boxes.Length == 1)
+                    foreach (var newBox in BreakUpDialgoueBox(temp, boxes))
                     {
-                        processedInstructons.AddLast(instruction);
-                    }
-                    else
-                    {
-                       foreach (var newBox in BreakUpDialgoueBox(temp, boxes))
-                        {
-                            processedInstructons.AddLast(newBox);
-                        }
+                       processedInstructons.AddLast(newBox);                    
                     }
                 }
                 else
@@ -134,10 +129,12 @@ namespace KPT.Parser
         public IInstruction[] BreakUpDialgoueBox(IDialogueBox input, BoxLines[] boxes)
         {
 
-            if (boxes.Length == 1)
+            /*if (boxes.Length == 1)
             {
                 return new IInstruction[1] { input as IInstruction };
             }
+            //Leaving this old here for posterity. I removed this out because it was causing issues with text boxes that have 2 lines but no overflow. (They weren't wrapping properly for some reason.)
+            */
 
             List<IInstruction> newBoxes = new List<IInstruction>();
 
