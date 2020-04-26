@@ -1,0 +1,25 @@
+name: Master [onPR]
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: windows-2019
+    steps:
+    - name: Checkout the repository
+      uses: actions/checkout@v2
+      with:
+        submodules: 'recursive'
+
+    - name: Setup Nuget.exe
+      uses: warrenbuckley/Setup-Nuget@v1
+    
+    - name: Download dependencies
+      run: nuget restore $Env:GITHUB_WORKSPACE\KPT.sln
+      
+    - name: Build
+      run: |
+            cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
+            .\MSBuild.exe $Env:GITHUB_WORKSPACE\KPT.sln -t:Build -p:Configuration=Release -tv:current
