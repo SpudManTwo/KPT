@@ -24,11 +24,11 @@ jobs:
     - name: Build
       run: |
             cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
-            .\MSBuild.exe $Env:GITHUB_WORKSPACE\KPT.sln -tv:current
+            .\MSBuild.exe $Env:GITHUB_WORKSPACE\KPT.sln -t:Build -p:Configuration=Release -tv:current
     
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
       with: 
         name: KPT-SNAPSHOT-${{ github.run_number }}
-        path: .\bin\
+        path: .\bin\Release
 
