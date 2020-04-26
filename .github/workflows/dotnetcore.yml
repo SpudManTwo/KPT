@@ -15,10 +15,10 @@ jobs:
       with:
         submodules: 'recursive'
     
-    - name: Setup MSBuild.exe
-      uses: warrenbuckley/Setup-MSBuild@v1
-
-    - name: MSBuild
-      working-directory: $Env:GITHUB_WORKSPACE
-      run: msbuild KPT.sln
+    - name: Setup VS Dev Environment
+      uses: seanmiddleditch/gha-setup-vsdevenv@v1
+      
+    - name: Build
+      run: |
+            MSBuild $Env:GITHUB_WORKSPACE\KPT.sln
 
