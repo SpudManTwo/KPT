@@ -151,6 +151,7 @@ namespace KPT
             openFileDialog1.FileName = "";
             openFileDialog1.Filter = "ISO|*.iso";
             openFileDialog1.ShowDialog();
+            openFileDialog1.Title = "Please Select the Kokoro Connect .iso file.";
 
             if (openFileDialog1.FileName == "")
             {
@@ -160,6 +161,7 @@ namespace KPT
             string isoFileName = openFileDialog1.FileName;
 
             folderBrowserDialog1.SelectedPath = "";
+            folderBrowserDialog1.Description = "Please Select where you would like the patched iso files to go.";
 
             folderBrowserDialog1.ShowDialog();
 
@@ -170,6 +172,18 @@ namespace KPT
 
             string endDirectory = folderBrowserDialog1.SelectedPath;
 
+            folderBrowserDialog1.SelectedPath = "";
+            folderBrowserDialog1.Description = "Please select the root directory of the pre-built patch files. (Will have a PATCH.README in it.)";
+
+            folderBrowserDialog1.ShowDialog();
+
+            string patchedFilesDirectory = Path.Combine(folderBrowserDialog1.SelectedPath, "Pre-Built English Files");
+            if(folderBrowserDialog1.SelectedPath == "" || !Directory.Exists(patchedFilesDirectory))
+            {
+                MessageBox.Show("Not Valid Root Directory for Patch Files. ");
+                return;
+            }
+
             var isoReader = new ISOReader();
             
             if (!isoReader.OpenISOStream(isoFileName, endDirectory))
@@ -179,7 +193,6 @@ namespace KPT
 
             DirectoryGuard.CheckDirectory(endDirectory);
 
-            string patchedFilesDirectory = Path.Combine(Environment.CurrentDirectory, "Pre-Built English Files");
             List<string> patchedFiles = new List<string>();
 
             GetAllPrePatchedFiles(patchedFilesDirectory, patchedFiles);

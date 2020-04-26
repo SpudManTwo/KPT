@@ -134,9 +134,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(222, 261);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(287, 13);
+            this.label4.Size = new System.Drawing.Size(293, 13);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Patches an Iso in One Click (Experimental/In Development)";
+            this.label4.Text = "Patches an Iso in Four Clicks (Experimental/In Development)";
             // 
             // EasyPatchButton
             // 
@@ -144,7 +144,7 @@
             this.EasyPatchButton.Name = "EasyPatchButton";
             this.EasyPatchButton.Size = new System.Drawing.Size(147, 23);
             this.EasyPatchButton.TabIndex = 7;
-            this.EasyPatchButton.Text = "One Click Easy Patch";
+            this.EasyPatchButton.Text = "Easy Patch";
             this.EasyPatchButton.UseVisualStyleBackColor = true;
             this.EasyPatchButton.Click += new System.EventHandler(this.EasyPatchButton_Click);
             // 
