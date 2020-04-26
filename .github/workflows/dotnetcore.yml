@@ -8,12 +8,18 @@ on:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: windows-2019
     steps:
     - name: Checkout the repository
       uses: actions/checkout@v2
       with:
         submodules: 'recursive'
+
+    - name: Setup Nuget.exe
+      uses: warrenbuckley/Setup-Nuget@v1
+    
+    - name: Download dependencies
+      run: nuget restore $Env:GITHUB_WORKSPACE\KPT.sln
     
     - name: Setup VS Dev Environment
       uses: seanmiddleditch/gha-setup-vsdevenv@v1
