@@ -28,13 +28,10 @@ jobs:
       run: |
             cd "C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Current\Bin\"
             .\MSBuild.exe $Env:GITHUB_WORKSPACE\KPT.sln -tv:current
-            
-    - name: Create Artifact Archive
-      run: zip -r KPT-SNAPSHOT-$Env:GITHUB_RUN_NUMBER.zip .
     
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
       with: 
         name: KPT-SNAPSHOT-$Env:GITHUB_RUN_NUMBER
-        path: KPT-SNAPSHOT-$Env:GITHUB_RUN_NUMBER.zip
+        path: .
 
