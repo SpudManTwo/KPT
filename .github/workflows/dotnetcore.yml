@@ -26,5 +26,5 @@ jobs:
       
     - name: Build
       run: |
-            MSBuild $Env:GITHUB_WORKSPACE\KPT.sln  -ToolsVersion 16
+            MSBuild $Env:GITHUB_WORKSPACE\KPT.sln -tv:current
 
