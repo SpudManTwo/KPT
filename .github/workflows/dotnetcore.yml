@@ -10,16 +10,15 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout the repository
+      uses: actions/checkout@v2
       with:
         submodules: 'recursive'
-    - name: Setup .NET Core
-      uses: actions/setup-dotnet@v1
-      with:
-        dotnet-version: 3.1.101
-    - name: Install dependencies
-      run: dotnet restore
+        
+    - name: Setup VS Dev Environment
+      uses: seanmiddleditch/gha-setup-vsdevenv@v1
+      
     - name: Build
-      run: dotnet build --configuration Release --no-restore
-    - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: |
+            MSBuild.exe $Env:GITHUB_WORKSPACE\KPT.sln
+
