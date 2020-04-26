@@ -30,11 +30,11 @@ jobs:
             .\MSBuild.exe $Env:GITHUB_WORKSPACE\KPT.sln -tv:current
             
     - name: Create Artifact Archive
-      run: zip -r KPT-SNAPSHOT-$GITHUB_RUN_NUMBER.zip .
+      run: zip -r KPT-SNAPSHOT-$Env:GITHUB_RUN_NUMBER.zip .
     
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
       with: 
-        name: KPT-SNAPSHOT-$GITHUB_RUN_NUMBER
-        path: KPT-SNAPSHOT-$GITHUB_RUN_NUMBER.zip
+        name: KPT-SNAPSHOT-$Env:GITHUB_RUN_NUMBER
+        path: KPT-SNAPSHOT-$Env:GITHUB_RUN_NUMBER.zip
 
