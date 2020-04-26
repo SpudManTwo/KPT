@@ -20,5 +20,5 @@ jobs:
 
     - name: MSBuild
       working-directory: src
-      run: msbuild KPT.sln
+      run: msbuild $Env:GITHUB_WORKSPACE\KPT.sln
 
