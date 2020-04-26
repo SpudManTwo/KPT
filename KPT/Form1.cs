@@ -145,6 +145,12 @@ namespace KPT
                 this.Visible = true;
             }
         }
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            var about = new About();
+            about.ShowDialog();
+            
+        }
 
         private void EasyPatchButton_Click(object sender, EventArgs e)
         {
