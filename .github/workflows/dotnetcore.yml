@@ -29,6 +29,6 @@ jobs:
     - name: Upload Artifact
       uses: actions/upload-artifact@v1.0.0
       with: 
-        name: KPT-SNAPSHOT-${{ GITHUB_RUN_NUMBER }}
-        path: .
+        name: KPT-SNAPSHOT-${{ github.run_number }}
+        path: .\bin\
 
