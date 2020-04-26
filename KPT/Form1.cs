@@ -145,11 +145,117 @@ namespace KPT
                 this.Visible = true;
             }
         }
-
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var about = new About();
             about.ShowDialog();
+            
         }
+
+        private void EasyPatchButton_Click(object sender, EventArgs e)
+        {
+            openFileDialog1.FileName = "";
+            openFileDialog1.Filter = "ISO|*.iso";
+            openFileDialog1.ShowDialog();
+            openFileDialog1.Title = "Please Select the Kokoro Connect .iso file.";
+
+            if (openFileDialog1.FileName == "")
+            {
+                return;
+            }
+
+            string isoFileName = openFileDialog1.FileName;
+
+            folderBrowserDialog1.SelectedPath = "";
+            folderBrowserDialog1.Description = "Please Select where you would like the patched iso files to go.";
+
+            folderBrowserDialog1.ShowDialog();
+
+            if (folderBrowserDialog1.SelectedPath == "")
+            {
+                return;
+            }
+
+            string endDirectory = folderBrowserDialog1.SelectedPath;
+
+            folderBrowserDialog1.SelectedPath = "";
+            folderBrowserDialog1.Description = "Please select the root directory of the pre-built patch files. (Will have a PATCH.README in it.)";
+
+            folderBrowserDialog1.ShowDialog();
+
+            string patchedFilesDirectory = Path.Combine(folderBrowserDialog1.SelectedPath, "Pre-Built English Files");
+            if(folderBrowserDialog1.SelectedPath == "" || !Directory.Exists(patchedFilesDirectory))
+            {
+                MessageBox.Show("Not Valid Root Directory for Patch Files. ");
+                return;
+            }
+
+            var isoReader = new ISOReader();
+            
+            if (!isoReader.OpenISOStream(isoFileName, endDirectory))
+            { 
+                return; // ISOReader itself should take care of showing a detailed error message
+            }
+
+            DirectoryGuard.CheckDirectory(endDirectory);
+
+            List<string> patchedFiles = new List<string>();
+
+            GetAllPrePatchedFiles(patchedFilesDirectory, patchedFiles);
+            Dictionary<string, string> outputPatchedFiles = new Dictionary<string, string>();
+
+            patchedFiles.ForEach(patchedFileSource => outputPatchedFiles.Add(Path.Combine(endDirectory, patchedFileSource.Substring(patchedFilesDirectory.Length+1)), patchedFileSource));
+
+            var isoFiles = isoReader.GetGenerator();
+            try
+            {
+                //First We Dump the Iso and make list of files in need of patching.
+                foreach (var file in isoFiles)
+                {
+
+                    string fileName = Path.Combine(endDirectory, file.name);
+
+                    DirectoryGuard.CheckDirectory(fileName);
+
+                    FileStream fs = new FileStream(fileName, FileMode.Create);
+
+
+                    if (outputPatchedFiles.ContainsKey(fileName))
+                    {
+                        FileStream patchedFileStream = new FileStream(outputPatchedFiles[fileName], FileMode.Open);
+                        patchedFileStream.CopyTo(fs);
+                        patchedFileStream.Close();
+                    }
+                    else
+                    {
+                        file.dataStream.CopyTo(fs);
+                    }
+
+                    fs.Close();
+                }
+
+                MessageBox.Show("That was easy.");
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("There was an issue. Please contact Spud and yell at him to fix things.");
+            }
+            finally
+            {
+                isoReader.CloseISOStream();
+            }
+        }
+
+        private void GetAllPrePatchedFiles(string patchedFileDirectory, List<string> patchedFiles)
+        {
+            foreach(string fileName in Directory.GetFiles(patchedFileDirectory))
+            {
+                patchedFiles.Add(fileName);
+            }
+            foreach(string directoryName in Directory.GetDirectories(patchedFileDirectory))
+            {
+                GetAllPrePatchedFiles(directoryName, patchedFiles);
+            }
+        }        
     }
 }
