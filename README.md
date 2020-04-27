@@ -1,6 +1,6 @@
 # S-KPT
 
-S-KPT is a fork of the original KPT and is designed solely for the purpose of patching Kokoro Connect Yoshi Random for the PSP. While it is possible to use this tool for other iso patching, I would not advise it as this tool is designed for use with the Fan Translation Patch for that specific game.
+S-KPT is a fork of the original KPT and is designed solely for the purpose of patching Kokoro Connect Yochi Random for the PSP. While it is possible to use this tool for other iso patching, I would not advise it as this tool is designed for use with the Fan Translation Patch for that specific game.
 
 ## Installation
 
@@ -20,7 +20,7 @@ Most importantly, **YOU MUST ALREADY HAVE A WORKING LEGITIMATE. I WILL NOT BE DI
 4. Download and extract all the contents of latest version of the pre-compiled translation files.
 5. Run KPT.exe from the folder where you extracted the tool into.
 6. Click the Easy Patch Button.
-7. Select the Kokoro Connect Yoshi Random ISO file in the file dialogue box.
+7. Select the Kokoro Connect Yochi Random ISO file in the file dialogue box.
 8. Select the folder where you would like the patched iso contents to be placed in the next dialogue box.
 9. Select the folder where you you extracted the pre-compiled translation files. The tool will not properly unless you select the correct directory here.
 10. Wait a few seconds while the tool does the rest of the work.
@@ -33,7 +33,7 @@ Most importantly, **YOU MUST ALREADY HAVE A WORKING LEGITIMATE. I WILL NOT BE DI
 4. Run KPT.exe from the folder where you extracted the tool into.
 5. Create a new Project.
 6. Open the newly created project.
-7. Dump the contents of your Kokoro Connect Yoshi Random ISO
+7. Dump the contents of your Kokoro Connect Yochi Random ISO
 8. Unpack the ISO Files.
 9. Dump the strings.
 10. Extract the images.
