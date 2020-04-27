@@ -53,22 +53,30 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 If you'd like to help with translating the game, please reach out to myself, defan752, or ask about helping out in the [Kokoro Connect Discord](https://discord.gg/PDDUkar).
 
 ## Acknowledgements
+
 **Nuget Packages:**
+
 [DiscUtils](https://github.com/DiscUtils/DiscUtils)
 [SharpYAML](https://github.com/xoofx/SharpYaml)
 [CSVHelper](https://joshclose.github.io/CsvHelper/)
 
+
 **Other Code Repos**
+
 [LibCPK/CPKTools](https://github.com/wmltogether/CriPakTools)
 [Pgftools](https://github.com/tpunix/pgftool)
 
+
 **dl471's code (Thank you, you are a hero!)**
+
 [DLL for pgftools](https://github.com/dl471/pgftool)
 [C# Wrapper for DLL](https://github.com/dl471/libpgf-csharp)
 [KPT](https://github.com/dl471/KPT)
 
-Tools:
+**Tools:**
+
 GimConv
 
-Github CI:
+**Github CI:**
+
 [shindouj](https://github.com/shindouj/KPT)
