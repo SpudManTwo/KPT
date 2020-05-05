@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.IO.Compression;
 
 namespace KPT
 {
@@ -166,6 +167,19 @@ namespace KPT
 
             string isoFileName = openFileDialog1.FileName;
 
+
+            openFileDialog1.FileName = "EasyPatch.kpt";
+            openFileDialog1.Filter = "KPT|*.kpt";
+            openFileDialog1.ShowDialog();
+            openFileDialog1.Title = "Please Select the Kokoro Connect .kpt patch file.";
+
+            if (openFileDialog1.FileName == "")
+            {
+                return;
+            }
+
+            string patchZip = openFileDialog1.FileName;
+
             folderBrowserDialog1.SelectedPath = "";
             folderBrowserDialog1.Description = "Please Select where you would like the patched iso files to go.";
 
@@ -176,19 +190,9 @@ namespace KPT
                 return;
             }
 
-            string endDirectory = folderBrowserDialog1.SelectedPath;
+            string endDirectory = folderBrowserDialog1.SelectedPath;            
 
-            folderBrowserDialog1.SelectedPath = "";
-            folderBrowserDialog1.Description = "Please select the root directory of the pre-built patch files. (Will have a PATCH.README in it.)";
-
-            folderBrowserDialog1.ShowDialog();
-
-            string patchedFilesDirectory = Path.Combine(folderBrowserDialog1.SelectedPath, "Pre-Built English Files");
-            if(folderBrowserDialog1.SelectedPath == "" || !Directory.Exists(patchedFilesDirectory))
-            {
-                MessageBox.Show("Not Valid Root Directory for Patch Files. ");
-                return;
-            }
+            ZipArchive patchDirectory = ZipFile.OpenRead(patchZip);
 
             var isoReader = new ISOReader();
             
@@ -199,13 +203,8 @@ namespace KPT
 
             DirectoryGuard.CheckDirectory(endDirectory);
 
-            List<string> patchedFiles = new List<string>();
-
-            GetAllPrePatchedFiles(patchedFilesDirectory, patchedFiles);
-            Dictionary<string, string> outputPatchedFiles = new Dictionary<string, string>();
-
-            patchedFiles.ForEach(patchedFileSource => outputPatchedFiles.Add(Path.Combine(endDirectory, patchedFileSource.Substring(patchedFilesDirectory.Length+1)), patchedFileSource));
-
+            IEnumerable<ZipArchiveEntry> prebuiltFiles = patchDirectory.Entries.Where(patchEntry => patchEntry.Name.EndsWith(".cpk"));
+            
             var isoFiles = isoReader.GetGenerator();
             try
             {
@@ -217,21 +216,18 @@ namespace KPT
 
                     DirectoryGuard.CheckDirectory(fileName);
 
-                    FileStream fs = new FileStream(fileName, FileMode.Create);
+                    var prebuiltFile = prebuiltFiles.SingleOrDefault(fileEntry => file.name.EndsWith(fileEntry.Name));
 
-
-                    if (outputPatchedFiles.ContainsKey(fileName))
+                    if (prebuiltFile == null)
                     {
-                        FileStream patchedFileStream = new FileStream(outputPatchedFiles[fileName], FileMode.Open);
-                        patchedFileStream.CopyTo(fs);
-                        patchedFileStream.Close();
+                        FileStream fs = new FileStream(fileName, FileMode.Create);
+                        file.dataStream.CopyTo(fs);
+                        fs.Close();
                     }
                     else
                     {
-                        file.dataStream.CopyTo(fs);
-                    }
-
-                    fs.Close();
+                        prebuiltFile.ExtractToFile(fileName);
+                    }                    
                 }
 
                 MessageBox.Show("That was easy.");
