@@ -37,6 +37,15 @@ namespace KPT.Parser
     }
 
     /// <summary>
+    /// Represents the footer of a file
+    /// </summary>
+    interface IFooter : IElement
+    {
+        new bool Read(BinaryReader br);
+        new bool Write(BinaryWriter bw);
+    }
+
+    /// <summary>
     /// The base interface for all elements - represents a block of data in a file
     /// </summary>
     interface IElement

@@ -7,6 +7,9 @@ using System.IO;
 using KPT.Parser.Elements;
 using KPT.Parser.Instructions;
 using KPT.Parser.Headers;
+using KPT.Parser.Footers;
+using KPT.Parser.Elements;
+using KPT.Parser.Jump_Label_Manager;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
@@ -19,7 +22,7 @@ namespace KPT.Parser
     {
         public IHeader header;
         public List<IInstruction> instructions;
-        public DataBox footer; // The footer appears to be some kind of padding of 0x88, so it is represented with a Box instead of a specific footer object
+        public IFooter footer;
     }
     // perhaps FileParser and KCFile should be merged?
 
@@ -39,35 +42,23 @@ namespace KPT.Parser
         }
 
         /// <summary>
-        /// A helper function for creating Boxes
-        /// </summary>
-        /// <param name="opcode"></param>
-        /// <returns></returns>
-        /// <remarks>
-        /// Intended to make Box creating code cleaner by delegating the getting of instruction size and construction of object to a seperate function
-        /// </remarks>
-        private InstructionBox MakeInstructionBox(Opcode opcode)
-        {
-            int instructionSize = OpcodeInfo.GetInstructionSize(opcode);
-            return new InstructionBox(instructionSize);
-        }
-
-        /// <summary>
         /// Takes a file and breaks it down into IElements then returns it in a structured format
         /// </summary>
         /// <param name="br">The file to process</param>
         /// <param name="fileName">The name of the file to be processed (used only for displaying error messages)</param>
+        /// <param name="jumpLabelManager">The jump label manager to use when processing file (pass null to disable jump tracking)</param>
         /// <returns>A class containing the processed file data</returns>
-        public KCFile ParseFile(BinaryReader br, string fileName)
+        public KCFile ParseFile(BinaryReader br, string fileName, JumpLabelManager jumpLabelManager)
         {
             KCFile workingFile = new KCFile();
             List<IInstruction> instructions = new List<IInstruction>();
 
-            DataBox footer = ReadFooter(br);
-            workingFile.footer = footer;
+            workingFile.footer = ReadFooter(br);
             workingFile.header = ReadHeader(br);
 
-            long streamEnd = br.BaseStream.Length - footer.GetContentsSize();
+            StCpNumber fileNumber = (workingFile.header as StCp_Header).GetFileNumber(); // more than anything else this basically cements that this function reads only StCp files which should really be clarified at some point
+
+            long streamEnd = br.BaseStream.Length - ElementHelper.GetElementSize(workingFile.footer);
 
             while (br.BaseStream.Position != streamEnd) // will need to check this for accuracy as it has been unreliable in some cases in the past
             {
@@ -81,12 +72,25 @@ namespace KPT.Parser
                     Environment.Exit(1);
                 }
 
+                if (jumpLabelManager != null) // we want to support running this without a jumplabelmanager just in case
+                {
+
+                    long currentAddress = br.BaseStream.Position;
+
+                    if (jumpLabelManager.IsJumpTarget(fileNumber, (int)currentAddress))
+                    {
+                        var virtualLabel = jumpLabelManager.CreateVirtualLabel(fileNumber, (int)currentAddress);
+                        instructions.Add(virtualLabel);
+                    }
+
+                }
+
                 IInstruction newInstruction;
                 Type instructionParserType = OpcodeInfo.GetInstructionParserType(opcode);
                 
                 if (instructionParserType == typeof(InstructionBox))
                 {
-                    newInstruction = MakeInstructionBox(opcode);
+                    newInstruction = ElementHelper.MakeInstructionBox(opcode);
                     newInstruction.Read(br);
                 }
                 else
@@ -127,7 +131,7 @@ namespace KPT.Parser
 
         private IHeader ReadHeader(BinaryReader br)
         {
-            St_Header header = new St_Header();
+            StCp_Header header = new StCp_Header();
             if (!header.Read(br))
             {
                 string errorMessage = "Failed to read header of file {0}. Corrupt or invalid header?";
@@ -137,41 +141,11 @@ namespace KPT.Parser
             return header;
         }
 
-        /// <summary>
-        /// Reads the footer of a file
-        /// </summary>
-        /// <param name="br">The file to be read</param>
-        /// <returns>A Box containing the file footer</returns>
-        /// <remarks>
-        /// Works backwards from the end of the file to calcuate the footer then returns the stream's position back to the start of the stream. Does not preserve the curren position of any streams passed to it.
-        /// </remarks>
-        private DataBox ReadFooter(BinaryReader br)
+        private IFooter ReadFooter(BinaryReader br)
         {
-            br.BaseStream.Seek(-1, SeekOrigin.End);
+            St_Footer footer = new St_Footer();
 
-            int footerSize = 0;
-            DataBox footer;
-
-            if (br.ReadByte() != 0x88)
-            {
-                br.BaseStream.Seek(0, SeekOrigin.Begin); // is this control flow convoluted?
-                footer = new DataBox(0);
-                footer.Read(br);
-                return footer;
-            }
-
-            br.BaseStream.Seek(-1, SeekOrigin.End);
-
-            while (br.ReadByte() == 0x88)
-            {
-                br.BaseStream.Seek(-2, SeekOrigin.Current);
-                footerSize += 1;
-            }
-
-            footer = new DataBox(footerSize);
             footer.Read(br);
-
-            br.BaseStream.Seek(0, SeekOrigin.Begin);
 
             return footer;
         }

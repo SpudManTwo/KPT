@@ -240,7 +240,7 @@ namespace KPT.Parser.Tests
 
             TestElement(typeof(ChoiceBar), "ChoiceBarTest.bin");
 
-            TestElement(typeof(St_Header), "St_HeaderTest.bin");
+            TestElement(typeof(StCp_Header), "StCp_HeaderTest.bin");
 
             TestElement(typeof(SpriteInfo), "SpriteInfoTest.bin");
 
@@ -252,7 +252,7 @@ namespace KPT.Parser.Tests
             TestElement(typeof(U_501), "U_501Test.bin");
             TestElement(typeof(BasicTextBox), "U_500Test.bin");
             TestElement(typeof(U_502), "U_502Test.bin");
-            TestElement(typeof(U_504), "U_504Test.bin");
+            TestElement(typeof(HideTextBox), "HideTextBoxTest.bin");
 
             TestStringCollection();
 

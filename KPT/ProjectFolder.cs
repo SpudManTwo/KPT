@@ -10,6 +10,7 @@ using KPT.Parser;
 using KPT.Parser.Elements;
 using KPT.Parser.Instructions;
 using KPT.Parser.Spreadsheet_Interface;
+using KPT.Parser.Jump_Label_Manager;
 using System.ComponentModel;
 using System.Threading;
 
@@ -175,7 +176,7 @@ namespace KPT
                 BinaryReader br = new BinaryReader(fs);
 
                 var testParser = new FileParser();
-                var parsedFile = testParser.ParseFile(br, Path.GetFileName(file));
+                var parsedFile = testParser.ParseFile(br, Path.GetFileName(file), null);
 
                 foreach (IElement element in parsedFile.instructions)
                 {
@@ -243,6 +244,9 @@ namespace KPT
             fontHandler.ChangeSpaceSize(FontHandler.DEFAULT_SPACE_SIZE);
 
             var textWrapper = new DynamicTextBoxes();
+            var jumpTable = new KPT.Parser.Jump_Label_Manager.JumpTableInterface();
+            jumpTable.LoadJumpTable(); // changing the size of instructions with new dialogue will mess up file offsets so we will need to load the jump table and make sure it's updated as we go
+            var jumpLabelManager = new JumpLabelManager(jumpTable.GetJumpTableEntries());
 
             int counter = 0;
 
@@ -277,7 +281,7 @@ namespace KPT
                 BinaryReader br = new BinaryReader(fs);
 
                 var parser = new FileParser();
-                var parsedFile = parser.ParseFile(br, Path.GetFileName(file));
+                var parsedFile = parser.ParseFile(br, Path.GetFileName(file), jumpLabelManager);
 
                 foreach (IElement element in parsedFile.instructions)
                 {
@@ -306,6 +310,8 @@ namespace KPT
                 }                
 
             }
+
+            jumpTable.SaveJumpTable();
 
             Thread.Sleep(1000); // this is another aesthetic sleep, ensuring the the progress bar does not disappear before the user can see it completing
             eventArgs.Result = true;

@@ -9,24 +9,23 @@ using KPT.Parser.Elements;
 
 namespace KPT.Parser.Instructions
 {
-    class U_504 : IInstruction
+    class HideTextBox : IInstruction
     {
 
         Opcode opcode;
-        DataBox box1;
+        int fadeType; // really a bool - zero for standard disappearance and non-zero for a fade down
 
         public bool Read(BinaryReader br)
         {
             opcode = FileIOHelper.ReadOpcode(br);
-            box1 = new DataBox(0x2);
-            box1.Read(br);
+            fadeType = br.ReadUInt16();
             return true;
         }
 
         public bool Write(BinaryWriter bw)
         {
             bw.Write((short)opcode);
-            box1.Write(bw);
+            bw.Write((short)fadeType);
             return true;
         }
 
