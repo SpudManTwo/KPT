@@ -19,7 +19,7 @@ namespace KPT.Parser
             {"唯", "Yui" },
             {"青木", "Aoki" },
             {"藤島", "Fujishima" },
-            {"平田先生", "Ms Hirata"},
+            {"平田先生", "Ms. Hirata"},
             {"後藤", "Mr. Gotou"},
             {"〈ふうせんかずら〉", "〈Heartseed〉"},
             {"中山", "Nakayama"},
