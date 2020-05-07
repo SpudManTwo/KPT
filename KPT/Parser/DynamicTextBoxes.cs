@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,7 +25,7 @@ namespace KPT.Parser
         /// <remarks>
         /// This is caused by the buffer being sized so as to be able to fit the maximum possible Japanese text on the screen. Since more Latin characters can be packed into one box, the buffer is too small to hold all of them and so the entire box cannot be utilized. Ideally this restriction will be lifted once I find a way to directly maniuplate the buffer size in a way that can be made permanent.
         /// </remarks>
-        const int BOX_MAX_LENGTH = 90;
+        const int BOX_MAX_LENGTH = 95;
         /// <summary>
         /// Character to use when attempting to split English text into words - currently based on _ since spaces will be replaced with _ at current due to technical limitations
         /// </summary>
@@ -221,6 +221,7 @@ namespace KPT.Parser
 
             string newLine = string.Empty;
             int newLineLength = 0;
+            int bufferConsumption = 0;
 
             foreach (string segment in segments)
             {
@@ -239,6 +240,15 @@ namespace KPT.Parser
                 if (newLineLength + workingSegmentLength > LINE_LENGTH_WIDTH)
                 {
                     lines.Add(newLine);
+                    bufferConsumption += newLine.Length;
+                    newLine = string.Empty;
+                    newLineLength = 0;
+                }
+
+                if(bufferConsumption + newLine.Length + workingSegment.Length > BOX_MAX_LENGTH)
+                {
+                    lines.Add(newLine);
+                    bufferConsumption = 0;
                     newLine = string.Empty;
                     newLineLength = 0;
                 }
