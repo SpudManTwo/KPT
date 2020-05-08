@@ -4,6 +4,9 @@ using System.Data;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace KPT
@@ -87,6 +90,7 @@ namespace KPT
             }
 
             btnPatch.Enabled = true;
+            this.patchTask = null;
         }
 
         private void btnPatch_Click(object sender, EventArgs e)
@@ -99,7 +103,12 @@ namespace KPT
             txtOutputPath.Enabled = false;
             btnOutputPath.Enabled = false;
             btnPatch.Enabled = false;
+            if(this.patchTask == null)
+                this.patchTask = PatchGame();
+        }
 
+        private async Task PatchGame()
+        {
             ZipArchive patchDirectory = ZipFile.OpenRead(txtPatchPath.Text);
 
             var isoReader = new ISOReader();
@@ -117,35 +126,14 @@ namespace KPT
 
             try
             {
-                int counter = 0;
+                filesProcessed = 0;
+                totalFiles = (double)isoFiles.Count();
 
                 //First We Dump the Iso and make list of files in need of patching.
-                foreach (var file in isoFiles)
-                {
 
+                List<Task> tasks = isoFiles.Select(file => PatchFile(file, prebuiltFiles)).ToList();
 
-                    string fileName = Path.Combine(txtOutputPath.Text, file.name);
-
-                    DirectoryGuard.CheckDirectory(fileName);
-
-                    var prebuiltFile = prebuiltFiles.SingleOrDefault(fileEntry => file.name.EndsWith(fileEntry.Name));
-
-                    if (prebuiltFile == null)
-                    {
-                        FileStream fs = new FileStream(fileName, FileMode.Create);
-                        file.dataStream.CopyTo(fs);
-                        fs.Close();
-                    }
-                    else
-                    {
-                        prebuiltFile.ExtractToFile(fileName);
-                    }
-
-                    counter++;
-
-                    //Update Progress Bar
-                    PatchProgressBar.Value = (int)(((double)counter / (double)isoFiles.Count()) * 100);
-                }
+                await Task.WhenAll(tasks);
 
                 MessageBox.Show("That was easy.");
             }
@@ -164,8 +152,42 @@ namespace KPT
                 btnPatchPath.Enabled = true;
                 txtOutputPath.Enabled = true;
                 btnOutputPath.Enabled = true;
-                btnPatch.Enabled = true;
+
+                System.Timers.Timer renablePatchTier = new System.Timers.Timer(2000);
+                renablePatchTier.Elapsed += ReenablePatchButton;
+                renablePatchTier.AutoReset = false;
+                renablePatchTier.Enabled = true;
             }
+        }
+
+        private void ReenablePatchButton(Object source, ElapsedEventArgs e)
+        {
+            btnPatch.Enabled = true;
+        }
+
+        private async Task PatchFile(EmbeddedFileAccessor file, IEnumerable<ZipArchiveEntry> prebuiltFiles)
+        {
+            string fileName = Path.Combine(txtOutputPath.Text, file.name);
+
+            DirectoryGuard.CheckDirectory(fileName);
+
+            var prebuiltFile = prebuiltFiles.SingleOrDefault(fileEntry => file.name.EndsWith(fileEntry.Name));
+
+            if (prebuiltFile == null)
+            {
+                FileStream fs = new FileStream(fileName, FileMode.Create);
+                file.dataStream.CopyTo(fs);
+                fs.Close();
+            }
+            else
+            {
+                prebuiltFile.ExtractToFile(fileName);
+            }
+
+            this.filesProcessed++;
+
+            //Update Progress Bar
+            PatchProgressBar.Value = (int)((this.filesProcessed / this.totalFiles) * 100);
         }
     }
 }

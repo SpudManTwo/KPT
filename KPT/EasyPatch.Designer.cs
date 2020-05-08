@@ -1,4 +1,6 @@
-﻿namespace KPT
+﻿using System.Threading.Tasks;
+
+namespace KPT
 {
     partial class EasyPatch
     {
@@ -211,5 +213,8 @@
         private System.Windows.Forms.Button btnPatch;
         private System.Windows.Forms.OpenFileDialog dlgPatchPath;
         private System.Windows.Forms.FolderBrowserDialog dlgOutputPath;
+        private double filesProcessed;
+        private double totalFiles;
+        private Task patchTask;
     }
 }
