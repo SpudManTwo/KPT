@@ -81,6 +81,12 @@
     <Compile Include="DirectoryGuard.cs" />
     <Compile Include="DirectoryReader.cs" />
     <Compile Include="Dumper.cs" />
+    <Compile Include="EasyPatch.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="EasyPatch.Designer.cs">
+      <DependentUpon>EasyPatch.cs</DependentUpon>
+    </Compile>
     <Compile Include="FontHandler.cs" />
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
@@ -144,6 +150,9 @@
     <Compile Include="Version.cs" />
     <EmbeddedResource Include="About.resx">
       <DependentUpon>About.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="EasyPatch.resx">
+      <DependentUpon>EasyPatch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

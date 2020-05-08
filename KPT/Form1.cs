@@ -153,7 +153,7 @@ namespace KPT
             
         }
 
-        private void EasyPatchButton_Click(object sender, EventArgs e)
+        /*private void EasyPatchButton_Click(object sender, EventArgs e)
         {
             openFileDialog1.FileName = "";
             openFileDialog1.Filter = "ISO|*.iso";
@@ -240,6 +240,17 @@ namespace KPT
             {
                 isoReader.CloseISOStream();
             }
+        }*/
+
+        private void EasyPatchButton_Click(object sender, EventArgs e)
+        {
+            this.Visible = false;
+
+            var easyPatchForm = new EasyPatch();
+
+            easyPatchForm.ShowDialog();
+
+            this.Visible = true;
         }
 
         private void GetAllPrePatchedFiles(string patchedFileDirectory, List<string> patchedFiles)
