@@ -103,8 +103,11 @@ namespace KPT
             txtOutputPath.Enabled = false;
             btnOutputPath.Enabled = false;
             btnPatch.Enabled = false;
-            if(this.patchTask == null)
+            if (this.patchTask == null)
+            {
+                logFilePath = txtOutputPath.Text + "log.txt";
                 this.patchTask = PatchGame();
+            }
         }
 
         private async Task PatchGame()
@@ -139,7 +142,11 @@ namespace KPT
             }
             catch (Exception ex)
             {
-                MessageBox.Show("There was an issue. Please contact Spud and yell at him to fix things.");
+                MessageBox.Show("There was an issue. Please send the log located at "+logFilePath+" to Spud and yell at him to fix things.");
+                using (System.IO.StreamWriter logFile = new System.IO.StreamWriter(logFilePath, true))
+                {
+                    logFile.WriteLine("Exception hit:\n" + ex.ToString());
+                }
             }
             finally
             {
@@ -167,6 +174,11 @@ namespace KPT
 
         private async Task PatchFile(EmbeddedFileAccessor file, IEnumerable<ZipArchiveEntry> prebuiltFiles)
         {
+            using (System.IO.StreamWriter logFile = new System.IO.StreamWriter(logFilePath, true))
+            {
+                logFile.WriteLine("Beginning work on file: "+file.name);
+            }
+
             string fileName = Path.Combine(txtOutputPath.Text, file.name);
 
             DirectoryGuard.CheckDirectory(fileName);
@@ -182,6 +194,11 @@ namespace KPT
             else
             {
                 prebuiltFile.ExtractToFile(fileName);
+            }
+
+            using (System.IO.StreamWriter logFile = new System.IO.StreamWriter(logFilePath, true))
+            {
+                logFile.WriteLine("Completed work on file: " + file.name);
             }
 
             this.filesProcessed++;
