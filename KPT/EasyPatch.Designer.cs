@@ -216,5 +216,6 @@ namespace KPT
         private double filesProcessed;
         private double totalFiles;
         private Task patchTask;
+        private string logFilePath;
     }
 }
