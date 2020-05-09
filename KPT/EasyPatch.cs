@@ -105,7 +105,7 @@ namespace KPT
             btnPatch.Enabled = false;
             if (this.patchTask == null)
             {
-                logFilePath = txtOutputPath.Text + "log.txt";
+                logFilePath = txtOutputPath.Text + Path.PathSeparator + "log.txt";
                 this.patchTask = PatchGame();
             }
         }
