@@ -176,19 +176,19 @@ namespace KPT
         {
             using (System.IO.StreamWriter logFile = new System.IO.StreamWriter(logFilePath, true))
             {
-                logFile.WriteLine("Beginning work on file: "+file.name);
+                await logFile.WriteLineAsync("Beginning work on file: "+file.name);
             }
 
             string fileName = Path.Combine(txtOutputPath.Text, file.name);
 
             DirectoryGuard.CheckDirectory(fileName);
 
-            var prebuiltFile = prebuiltFiles.SingleOrDefault(fileEntry => file.name.EndsWith(fileEntry.Name));
+            var prebuiltFile = prebuiltFiles.Single(fileEntry => String.Equals(fileEntry.FullName.Substring(prebuiltFiles.First().FullName.IndexOf("PSP_GAME")),file.name.Replace("\\","/"), StringComparison.OrdinalIgnoreCase));
 
             if (prebuiltFile == null)
             {
                 FileStream fs = new FileStream(fileName, FileMode.Create);
-                file.dataStream.CopyTo(fs);
+                await file.dataStream.CopyToAsync(fs);
                 fs.Close();
             }
             else
@@ -198,7 +198,7 @@ namespace KPT
 
             using (System.IO.StreamWriter logFile = new System.IO.StreamWriter(logFilePath, true))
             {
-                logFile.WriteLine("Completed work on file: " + file.name);
+                await logFile.WriteLineAsync("Completed work on file: " + file.name);
             }
 
             this.filesProcessed++;

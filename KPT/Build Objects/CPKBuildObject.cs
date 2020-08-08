@@ -39,7 +39,9 @@ namespace KPT.BuildObjects
         string targetFileLocation;
         [SharpYaml.Serialization.YamlMember]
         Dictionary<uint, CPKEmbeddedFileMeta> files;
-        
+
+        public static List<string> changedCPKs = new List<string>();
+
         public CPKBuildObject()
         {
             files = new Dictionary<uint, CPKEmbeddedFileMeta>();
@@ -162,7 +164,7 @@ namespace KPT.BuildObjects
                 string checksum = Checksums.GetMD5(fileAsBytes);
 
                
-                if (checksum != file.checksumValue) // file has been changed
+                if (checksum != file.checksumValue || filePath.EndsWith("St000_ChptDat.bin")) // file has been changed
                 {
                     changedFiles.Add(file);
                 }
@@ -201,6 +203,7 @@ namespace KPT.BuildObjects
                     batchReplaceArg[fileName] = Path.Combine(ProjectFolder.GetRootDir(), file.filePath);
                 }
 
+                changedCPKs.Add(targetFileLocation);
                 ReplaceCPKFiles(originalCPKPath, targetCPKPath, batchReplaceArg);
             }
 
