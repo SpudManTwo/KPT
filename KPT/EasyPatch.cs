@@ -176,7 +176,7 @@ namespace KPT
         {
             using (System.IO.StreamWriter logFile = new System.IO.StreamWriter(logFilePath, true))
             {
-                await logFile.WriteLineAsync("Beginning work on file: "+file.name);
+                logFile.WriteLine("Beginning work on file: "+file.name);
             }
 
             string fileName = Path.Combine(txtOutputPath.Text, file.name);
@@ -188,7 +188,7 @@ namespace KPT
             if (prebuiltFile == null)
             {
                 FileStream fs = new FileStream(fileName, FileMode.Create);
-                await file.dataStream.CopyToAsync(fs);
+                file.dataStream.CopyTo(fs);
                 fs.Close();
             }
             else
@@ -198,7 +198,7 @@ namespace KPT
 
             using (System.IO.StreamWriter logFile = new System.IO.StreamWriter(logFilePath, true))
             {
-                await logFile.WriteLineAsync("Completed work on file: " + file.name);
+                logFile.WriteLine("Completed work on file: " + file.name);
             }
 
             this.filesProcessed++;
