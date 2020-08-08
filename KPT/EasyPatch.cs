@@ -123,7 +123,7 @@ namespace KPT
 
             DirectoryGuard.CheckDirectory(txtOutputPath.Text);
 
-            IEnumerable<ZipArchiveEntry> prebuiltFiles = patchDirectory.Entries.Where(patchEntry => patchEntry.Name.EndsWith(".cpk"));
+            IEnumerable<ZipArchiveEntry> prebuiltFiles = patchDirectory.Entries.Where(patchEntry => patchEntry.Name.EndsWith(".cpk") || patchEntry.Name.EndsWith(".SFO"));
 
             var isoFiles = isoReader.GetGenerator();
 
