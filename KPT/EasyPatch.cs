@@ -183,7 +183,7 @@ namespace KPT
 
             DirectoryGuard.CheckDirectory(fileName);
 
-            var prebuiltFile = prebuiltFiles.Single(fileEntry => String.Equals(fileEntry.FullName.Substring(prebuiltFiles.First().FullName.IndexOf("PSP_GAME")),file.name.Replace("\\","/"), StringComparison.OrdinalIgnoreCase));
+            var prebuiltFile = prebuiltFiles.SingleOrDefault(fileEntry => String.Equals(fileEntry.FullName.Substring(prebuiltFiles.First().FullName.IndexOf("PSP_GAME")),file.name.Replace("\\","/"), StringComparison.OrdinalIgnoreCase));
 
             if (prebuiltFile == null)
             {
