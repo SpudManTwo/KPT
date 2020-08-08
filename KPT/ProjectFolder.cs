@@ -148,6 +148,11 @@ namespace KPT
 
             Thread.Sleep(1000); // this is another aesthetic sleep, ensuring the the progress bar does not disappear before the user can see it completing
 
+            using (System.IO.StreamWriter logFile = new System.IO.StreamWriter(buildDir+Path.DirectorySeparatorChar+"build.log", true))
+            {
+                CPKBuildObject.changedCPKs.ForEach(changedCPK => logFile.WriteLine(changedCPK));
+            }
+
             eventArgs.Result = true;
         }
 
