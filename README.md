@@ -31,9 +31,13 @@ It is possible, but not advisable, to use this tool to patch other PSP ISOs. Thi
 
 3. Select the path to the Kokoro Connect Yochi Random ISO file, the path to the English patch (look for a .kpt file), and the folder where you would like the patched ISO contents to be placed in the next dialog box.
 
-4. The patcher will unpack the ISO's contents and replace them with the English patch. Wait a few seconds while the patcher does the rest of the work.
+4. The patcher will unpack the ISO's contents and replace them with the English patch. It will NOT overwrite your original ISO copy; the Japanese ISO will still be there after the new patched one is created.
 
-5. (optional) If you'd like to pack the unpacked and patched ISO contents into an .iso, .cso, or similiar image, then use a tool such as (UMDGen)[https://umdgen.en.lo4d.com/windows] to pack the patched ISO contents into a single ISO file.
+5. Wait a few seconds while the patcher does the rest of the work.
+
+6. When it is complete, you may close the patcher.
+
+7. (optional) If you'd like to pack the unpacked and patched ISO contents into an .iso, .cso, or similiar image, then use a tool such as (UMDGen)[https://umdgen.en.lo4d.com/windows] to pack the patched ISO contents into a single ISO file.
 
 
 ## Developers Only
