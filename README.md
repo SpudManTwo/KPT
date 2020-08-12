@@ -25,7 +25,7 @@ It is possible, but not advisable, to use this tool to patch other PSP ISOs. Thi
 
 ## Usage
 
-1. Start S-KPT Patcher by launching KPT.exe from the folder where you extracted the patcher.
+1. Start S-KPT Patcher by launching KPT.exe from the folder where you extracted the patcher. Your antivirus may throw up a flag, but ask it to trust the patcher.
 
 2. Click the "Easy Patch" Button.
 
