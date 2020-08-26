@@ -40,12 +40,12 @@ namespace KPT
             this.txtPatchPath = new System.Windows.Forms.TextBox();
             this.lblOutput = new System.Windows.Forms.Label();
             this.btnOutputPath = new System.Windows.Forms.Button();
-            this.lblOutputPath = new System.Windows.Forms.Label();
+            this.lblOutputFile = new System.Windows.Forms.Label();
             this.txtOutputPath = new System.Windows.Forms.TextBox();
             this.dlgIsoPath = new System.Windows.Forms.OpenFileDialog();
             this.btnPatch = new System.Windows.Forms.Button();
             this.dlgPatchPath = new System.Windows.Forms.OpenFileDialog();
-            this.dlgOutputPath = new System.Windows.Forms.FolderBrowserDialog();
+            this.dlgOutputPath = new System.Windows.Forms.SaveFileDialog();
             this.SuspendLayout();
             // 
             // txtIsoPath
@@ -137,19 +137,19 @@ namespace KPT
             this.btnOutputPath.Name = "btnOutputPath";
             this.btnOutputPath.Size = new System.Drawing.Size(88, 23);
             this.btnOutputPath.TabIndex = 6;
-            this.btnOutputPath.Text = "Select Folder";
+            this.btnOutputPath.Text = "Save To";
             this.btnOutputPath.UseVisualStyleBackColor = true;
             this.btnOutputPath.Click += new System.EventHandler(this.btnOutputPath_Click);
             // 
-            // lblOutputPath
+            // lblOutputFile
             // 
-            this.lblOutputPath.AutoSize = true;
-            this.lblOutputPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOutputPath.Location = new System.Drawing.Point(12, 271);
-            this.lblOutputPath.Name = "lblOutputPath";
-            this.lblOutputPath.Size = new System.Drawing.Size(118, 16);
-            this.lblOutputPath.TabIndex = 10;
-            this.lblOutputPath.Text = "Output Folder Path";
+            this.lblOutputFile.AutoSize = true;
+            this.lblOutputFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblOutputFile.Location = new System.Drawing.Point(12, 271);
+            this.lblOutputFile.Name = "lblOutputFile";
+            this.lblOutputFile.Size = new System.Drawing.Size(101, 16);
+            this.lblOutputFile.TabIndex = 10;
+            this.lblOutputFile.Text = "Output ISO Path";
             // 
             // txtOutputPath
             // 
@@ -177,7 +177,7 @@ namespace KPT
             this.ClientSize = new System.Drawing.Size(800, 413);
             this.Controls.Add(this.btnPatch);
             this.Controls.Add(this.btnOutputPath);
-            this.Controls.Add(this.lblOutputPath);
+            this.Controls.Add(this.lblOutputFile);
             this.Controls.Add(this.txtOutputPath);
             this.Controls.Add(this.lblOutput);
             this.Controls.Add(this.btnPatchPath);
@@ -207,12 +207,12 @@ namespace KPT
         private System.Windows.Forms.TextBox txtPatchPath;
         private System.Windows.Forms.Label lblOutput;
         private System.Windows.Forms.Button btnOutputPath;
-        private System.Windows.Forms.Label lblOutputPath;
+        private System.Windows.Forms.Label lblOutputFile;
         private System.Windows.Forms.TextBox txtOutputPath;
         private System.Windows.Forms.OpenFileDialog dlgIsoPath;
         private System.Windows.Forms.Button btnPatch;
         private System.Windows.Forms.OpenFileDialog dlgPatchPath;
-        private System.Windows.Forms.FolderBrowserDialog dlgOutputPath;
+        private System.Windows.Forms.SaveFileDialog dlgOutputPath;
         private double filesProcessed;
         private double totalFiles;
         private Task patchTask;
