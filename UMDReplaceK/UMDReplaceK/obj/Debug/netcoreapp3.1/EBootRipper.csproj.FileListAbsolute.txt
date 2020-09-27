@@ -1,0 +1,16 @@
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\bin\Debug\netcoreapp3.1\EBootRipper.exe
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\bin\Debug\netcoreapp3.1\EBootRipper.deps.json
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\bin\Debug\netcoreapp3.1\EBootRipper.runtimeconfig.json
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\bin\Debug\netcoreapp3.1\EBootRipper.runtimeconfig.dev.json
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\bin\Debug\netcoreapp3.1\EBootRipper.dll
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\bin\Debug\netcoreapp3.1\EBootRipper.pdb
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\bin\Debug\netcoreapp3.1\System.Text.Encoding.CodePages.dll
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\obj\Debug\netcoreapp3.1\EBootRipper.csprojAssemblyReference.cache
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\obj\Debug\netcoreapp3.1\EBootRipper.AssemblyInfoInputs.cache
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\obj\Debug\netcoreapp3.1\EBootRipper.AssemblyInfo.cs
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\obj\Debug\netcoreapp3.1\EBootRipper.csproj.CoreCompileInputs.cache
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\obj\Debug\netcoreapp3.1\EBootRipper.csproj.CopyComplete
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\obj\Debug\netcoreapp3.1\EBootRipper.dll
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\obj\Debug\netcoreapp3.1\EBootRipper.pdb
+C:\Users\SpudM\Desktop\Kokoro Connect VN\EBOOT Ripper\Eboot Ripper\obj\Debug\netcoreapp3.1\EBootRipper.genruntimeconfig.cache

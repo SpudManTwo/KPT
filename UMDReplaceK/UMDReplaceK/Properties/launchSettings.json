@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "UMDReplaceK": {
+      "commandName": "Project",
+      "commandLineArgs": "Kokoro_Connect_Yochi_Random_JPN_READNFO_PSP-HR.iso \PSP_GAME\PARAM.SFO PARAM.SFO"
+    }
+  }
+}

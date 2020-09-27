@@ -1,0 +1,16 @@
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\bin\Debug\netcoreapp3.1\UMDReplaceK.exe
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\bin\Debug\netcoreapp3.1\UMDReplaceK.deps.json
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\bin\Debug\netcoreapp3.1\UMDReplaceK.runtimeconfig.json
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\bin\Debug\netcoreapp3.1\UMDReplaceK.runtimeconfig.dev.json
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\bin\Debug\netcoreapp3.1\UMDReplaceK.dll
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\bin\Debug\netcoreapp3.1\UMDReplaceK.pdb
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\bin\Debug\netcoreapp3.1\System.Text.Encoding.CodePages.dll
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Text.Encoding.CodePages.dll
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\obj\Debug\netcoreapp3.1\UMDReplaceK.csprojAssemblyReference.cache
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\obj\Debug\netcoreapp3.1\UMDReplaceK.AssemblyInfoInputs.cache
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\obj\Debug\netcoreapp3.1\UMDReplaceK.AssemblyInfo.cs
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\obj\Debug\netcoreapp3.1\UMDReplaceK.csproj.CoreCompileInputs.cache
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\obj\Debug\netcoreapp3.1\UMDReplaceK.csproj.CopyComplete
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\obj\Debug\netcoreapp3.1\UMDReplaceK.dll
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\obj\Debug\netcoreapp3.1\UMDReplaceK.pdb
+C:\Users\SpudM\Desktop\Kokoro Connect VN\UMDReplaceK\UMDReplaceK\obj\Debug\netcoreapp3.1\UMDReplaceK.genruntimeconfig.cache
