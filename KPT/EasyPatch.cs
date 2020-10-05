@@ -128,39 +128,76 @@ namespace KPT
             {
                 filesProcessed = 0;
                 totalFiles = (double)prebuiltFiles.Count();
+                //First Argument is iso location
+                //Second Argument is going to be Batch Arguments temp file.
 
-                foreach(ZipArchiveEntry patchFile in prebuiltFiles)
+                List<string> batchArgs = new List<string>();
+                List<string> tempFilePaths = new List<string>();
+                //Wipe out any previous data that somehow persisted.
+                if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Libraries\\UMD-ReplaceK\\TemporaryPatchStorage"))
+                {
+                    Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "Libraries\\UMD-ReplaceK\\TemporaryPatchStorage", true);
+                }
+                Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Libraries\\UMD-ReplaceK\\TemporaryPatchStorage");
+                foreach (ZipArchiveEntry patchFile in prebuiltFiles)
                 {
                     //Generate a temp file path
-                    var tempFilePath = Path.GetTempFileName();
-                    //Delete the auto generated file from calling the GetTempFileName
-                    File.Delete(tempFilePath);
+                    var tempFilePath = AppDomain.CurrentDomain.BaseDirectory + "Libraries\\UMD-ReplaceK\\TemporaryPatchStorage\\" + patchFile.FullName.Substring(patchFile.FullName.IndexOf("PSP_GAME")).Replace("/", "\\");
+                    
+                    //Create directories as needed.
+                    if(!Directory.Exists(Directory.GetParent(tempFilePath).FullName))
+                    {
+                        Directory.CreateDirectory(Directory.GetParent(tempFilePath).FullName);
+                    }
+
                     //Extract the patched file to the temp file.
                     patchFile.ExtractToFile(tempFilePath);
 
-                    //Run UMD-Replace to replace the file.
-                    ProcessStartInfo processStartInfo = new ProcessStartInfo();
-                    processStartInfo.UseShellExecute = false;
-                    processStartInfo.CreateNoWindow = true;
-                    processStartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + "Libraries\\UMD-replace\\UMD-replace.exe";
-                    processStartInfo.Arguments = "\""+txtOutputPath.Text +"\" \""+ patchFile.FullName.Substring(patchFile.FullName.IndexOf("PSP_GAME")).Replace("/", "\\") + "\" \""+ tempFilePath+"\"";
-                    var t = processStartInfo.ToString();
-                    var process = Process.Start(processStartInfo);
-                    process.WaitForExit();
+                    //Add File to Arguments
+                    batchArgs.Add(patchFile.FullName.Substring(patchFile.FullName.IndexOf("PSP_GAME")).Replace("/", "\\"));
+                    batchArgs.Add("TemporaryPatchStorage\\" + patchFile.FullName.Substring(patchFile.FullName.IndexOf("PSP_GAME")).Replace("/", "\\"));
+                    tempFilePaths.Add(tempFilePath);
 
-                    //If things broke, throw exception
-                    if(process.ExitCode != 0)
-                    {
-                        throw new Exception(process.StandardOutput.ReadToEnd());
-                    }
-
-                    //Delete the temp file now that we're done with it.
-                    File.Delete(tempFilePath);
-
-                    filesProcessed++;
-                    //Update Progress Bar
+                    filesProcessed += 0.3;
+                    //Update Progress Bar with 1/3rd since extraction is the first third of progress.
                     PatchProgressBar.Value = (int)((filesProcessed / totalFiles) * 100);
                 }
+
+                //Generate a temp file path
+                string batchArgsFilePath = Path.GetTempFileName();
+                //Delete the auto generated file from calling the GetTempFileName
+                using (StreamWriter batchArgsFileWriter = new StreamWriter(new FileStream(batchArgsFilePath, FileMode.Open)))
+                {
+                    batchArgs.ForEach(batchArg => batchArgsFileWriter.WriteLine(batchArg));
+                }
+
+                //Run UMD-ReplaceK to replace the file.
+                ProcessStartInfo processStartInfo = new ProcessStartInfo();
+                processStartInfo.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory + "Libraries\\UMD-ReplaceK\\";
+                processStartInfo.UseShellExecute = false;
+                processStartInfo.CreateNoWindow = true;
+                processStartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + "Libraries\\UMD-ReplaceK\\UMDReplaceK.exe";
+                processStartInfo.Arguments = "\"" + txtOutputPath.Text + "\" "+batchArgsFilePath;
+                Process replaceProcess = null;
+                replaceProcess = Process.Start(processStartInfo);
+                replaceProcess.WaitForExit();                
+                //Update progress bar to show 2/3 completed
+                filesProcessed *= 2;
+                PatchProgressBar.Value = (int)((filesProcessed / totalFiles) * 100);
+                //If things broke, throw exception
+                if (replaceProcess.ExitCode != 0)
+                {
+                    throw new Exception(replaceProcess.StandardOutput.ReadToEnd());
+                }
+
+                //Delete the temp files once we are done
+                tempFilePaths.ForEach(tempFilePath =>
+                {
+                    File.Delete(tempFilePath);
+                    //Update progress bar with each temp file deletion.
+                    filesProcessed += 0.4;
+                    PatchProgressBar.Value = (int)((filesProcessed / totalFiles) * 100);
+                });
 
                 MessageBox.Show("That was easy.");
             }
