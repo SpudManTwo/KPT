@@ -1,3 +1,6 @@
 [submodule "libpgf-csharp"]
 	path = libpgf-csharp
 	url = https://github.com/dl471/libpgf-csharp
+[submodule "UMDReplaceK"]
+	path = UMDReplaceK
+	url = https://github.com/SpudManTwo/UMDReplaceK.git
