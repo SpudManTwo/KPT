@@ -122,7 +122,13 @@ namespace KPT
 
             File.Copy(txtIsoPath.Text, txtOutputPath.Text);
 
+            txtPatchOutputProcess.AppendText("Enumerating Patch Files...\n");
+            txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+            txtPatchOutputProcess.ScrollToCaret();
             IEnumerable<ZipArchiveEntry> prebuiltFiles = patchDirectory.Entries.Where(patchEntry => patchEntry.Name.EndsWith(".cpk") || patchEntry.Name.EndsWith(".SFO"));
+            txtPatchOutputProcess.AppendText($"{prebuiltFiles.Count()} + files found.\n");
+            txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+            txtPatchOutputProcess.ScrollToCaret();
 
             try
             {
@@ -133,12 +139,24 @@ namespace KPT
 
                 List<string> batchArgs = new List<string>();
                 List<string> tempFilePaths = new List<string>();
+                txtPatchOutputProcess.AppendText("Setting up Temporary Patch Storage...\n");
+                txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+                txtPatchOutputProcess.ScrollToCaret();
+
                 //Wipe out any previous data that somehow persisted.
                 if (Directory.Exists(AppDomain.CurrentDomain.BaseDirectory + "Libraries\\UMD-ReplaceK\\TemporaryPatchStorage"))
                 {
+                    txtPatchOutputProcess.AppendText("Deleting Previous Temporary Patch Storage...\n");
+                    txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+                    txtPatchOutputProcess.ScrollToCaret();
+
                     Directory.Delete(AppDomain.CurrentDomain.BaseDirectory + "Libraries\\UMD-ReplaceK\\TemporaryPatchStorage", true);
                 }
                 Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + "Libraries\\UMD-ReplaceK\\TemporaryPatchStorage");
+                txtPatchOutputProcess.AppendText("Patch Storage is good to go.\n");
+                txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+                txtPatchOutputProcess.ScrollToCaret();
+
                 foreach (ZipArchiveEntry patchFile in prebuiltFiles)
                 {
                     //Generate a temp file path
@@ -150,6 +168,10 @@ namespace KPT
                         Directory.CreateDirectory(Directory.GetParent(tempFilePath).FullName);
                     }
 
+                    txtPatchOutputProcess.AppendText($"Extracting Patch File: {patchFile.FullName}\n");
+                    txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+                    txtPatchOutputProcess.ScrollToCaret();
+
                     //Extract the patched file to the temp file.
                     patchFile.ExtractToFile(tempFilePath);
 
@@ -158,7 +180,7 @@ namespace KPT
                     batchArgs.Add("TemporaryPatchStorage\\" + patchFile.FullName.Substring(patchFile.FullName.IndexOf("PSP_GAME")).Replace("/", "\\"));
                     tempFilePaths.Add(tempFilePath);
 
-                    filesProcessed += 0.3;
+                    filesProcessed += 0.1;
                     //Update Progress Bar with 1/3rd since extraction is the first third of progress.
                     PatchProgressBar.Value = (int)((filesProcessed / totalFiles) * 100);
                 }
@@ -166,38 +188,95 @@ namespace KPT
                 //Generate a temp file path
                 string batchArgsFilePath = Path.GetTempFileName();
                 //Delete the auto generated file from calling the GetTempFileName
+                txtPatchOutputProcess.AppendText("Building batch patch file.\n");
+                txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+                txtPatchOutputProcess.ScrollToCaret();
+
                 using (StreamWriter batchArgsFileWriter = new StreamWriter(new FileStream(batchArgsFilePath, FileMode.Open)))
                 {
                     batchArgs.ForEach(batchArg => batchArgsFileWriter.WriteLine(batchArg));
                 }
+                txtPatchOutputProcess.AppendText("Batch Patch File is good to go.\n");
+                txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+                txtPatchOutputProcess.ScrollToCaret();
 
                 //Run UMD-ReplaceK to replace the file.
+                txtPatchOutputProcess.AppendText("Setting up UMD-ReplaceK Patch Process\n");
+                txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+                txtPatchOutputProcess.ScrollToCaret();
+
                 ProcessStartInfo processStartInfo = new ProcessStartInfo();
                 processStartInfo.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory + "Libraries\\UMD-ReplaceK\\";
                 processStartInfo.UseShellExecute = false;
                 processStartInfo.CreateNoWindow = true;
                 processStartInfo.FileName = AppDomain.CurrentDomain.BaseDirectory + "Libraries\\UMD-ReplaceK\\UMDReplaceK.exe";
                 processStartInfo.Arguments = "\"" + txtOutputPath.Text + "\" "+batchArgsFilePath;
+                processStartInfo.RedirectStandardOutput = true;
                 Process replaceProcess = null;
+
+                txtPatchOutputProcess.AppendText("UMD-ReplaceK Patch Process is good to go.\n");
+                txtPatchOutputProcess.AppendText("All systems are go.\n");
+                txtPatchOutputProcess.AppendText("All lights are green.\n");
+                txtPatchOutputProcess.AppendText("Houston, we have patching.\n");
+                txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+                txtPatchOutputProcess.ScrollToCaret();
+
+
                 replaceProcess = Process.Start(processStartInfo);
-                replaceProcess.WaitForExit();                
-                //Update progress bar to show 2/3 completed
-                filesProcessed *= 2;
+                while(!replaceProcess.HasExited)
+                {
+                    string outputLine = replaceProcess.StandardOutput.ReadLine() + "\n";
+                    txtPatchOutputProcess.AppendText(outputLine);
+                    txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+                    txtPatchOutputProcess.ScrollToCaret();
+
+                    if(outputLine.Contains("- replacing file "))
+                    {
+                        //Increment Patch Progress Bar.
+                        filesProcessed += 0.8;
+                        PatchProgressBar.Value = (int)((filesProcessed / totalFiles) * 100);
+                    }
+                }
+
                 PatchProgressBar.Value = (int)((filesProcessed / totalFiles) * 100);
                 //If things broke, throw exception
                 if (replaceProcess.ExitCode != 0)
                 {
+                    txtPatchOutputProcess.AppendText("Houston, we have a problem.\n");
+                    txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+                    txtPatchOutputProcess.ScrollToCaret();
+
                     throw new Exception(replaceProcess.StandardOutput.ReadToEnd());
                 }
+
+                txtPatchOutputProcess.AppendText("Performance nominal.\n");
+                txtPatchOutputProcess.AppendText("We have a go for second stage.\n");
+                txtPatchOutputProcess.AppendText("Cleaning up the mess of files we created...\n");
+                txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+                txtPatchOutputProcess.ScrollToCaret();
+
+                //Update progress bar to show how close we are to completion.
+                filesProcessed = tempFilePaths.Count() * 0.9;
+                PatchProgressBar.Value = (int)((filesProcessed / totalFiles) * 100);
 
                 //Delete the temp files once we are done
                 tempFilePaths.ForEach(tempFilePath =>
                 {
+                    txtPatchOutputProcess.AppendText($"Deleting temp patch file: {tempFilePath}\n");
+                    txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+                    txtPatchOutputProcess.ScrollToCaret();
+
                     File.Delete(tempFilePath);
                     //Update progress bar with each temp file deletion.
-                    filesProcessed += 0.4;
+                    filesProcessed += 0.1;
                     PatchProgressBar.Value = (int)((filesProcessed / totalFiles) * 100);
                 });
+
+                txtPatchOutputProcess.AppendText("Deploying landing gear.\n");
+                txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
+                txtPatchOutputProcess.ScrollToCaret();
+
+                File.Delete(batchArgsFilePath);
 
                 MessageBox.Show("That was easy.");
             }
@@ -325,6 +404,11 @@ namespace KPT
 
             //Update Progress Bar
             PatchProgressBar.Value = (int)((this.filesProcessed / this.totalFiles) * 100);
+        }
+
+        private void EasyPatch_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

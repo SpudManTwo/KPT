@@ -126,7 +126,7 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
@@ -135,9 +135,9 @@
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(222, 261);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(293, 13);
+            this.label4.Size = new System.Drawing.Size(225, 13);
             this.label4.TabIndex = 8;
-            this.label4.Text = "Patches an Iso in Four Clicks (Experimental/In Development)";
+            this.label4.Text = "Patches an Iso in Four Clicks (Recommended)";
             // 
             // EasyPatchButton
             // 
