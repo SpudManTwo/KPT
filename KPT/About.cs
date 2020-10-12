@@ -15,7 +15,7 @@ namespace KPT
         public About()
         {
             InitializeComponent();
-            this.label1.Text = "KPT Version " + Version.CurrentVersion.ToFormattedString();
+            this.label1.Text = "S-KPT Version " + Version.CurrentVersion.ToFormattedString();
         }
     }
 }

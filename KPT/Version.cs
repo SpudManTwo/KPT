@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace KPT
+﻿namespace KPT
 {
     static class Version
     {
@@ -19,12 +13,13 @@ namespace KPT
             beta_1_1_0,
             beta_1_1_1,
             beta_1_1_2,
+            beta_1_2_0
         };
 
         /// <summary>
         /// Current version
         /// </summary>
-        const Versions CURRENT_VERSION = Versions.beta_1_1_2;
+        const Versions CURRENT_VERSION = Versions.beta_1_2_0;
 
         public static Versions CurrentVersion
         {
@@ -45,7 +40,6 @@ namespace KPT
             newVersion = newVersion.Replace("_", ".");
             newVersion = newVersion.Replace("beta.", "beta-");
             return newVersion;
-        }       
-
+        }
     }
 }
