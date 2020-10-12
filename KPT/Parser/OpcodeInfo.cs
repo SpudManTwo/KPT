@@ -22,6 +22,7 @@ namespace KPT.Parser
         U_00C = 0x00C,
         U_00F = 0x00F,
         U_01E = 0x01E,
+        U_0B4 = 0x0B4,
         U_03C = 0x03C,
 
         U_100 = 0x100,
@@ -71,6 +72,7 @@ namespace KPT.Parser
 
         SHOW_IMAGE = 0x600,
         U_601 = 0x601,
+        U_602 = 0x602,
         U_603 = 0x603,
 
         CHOICE_DIALOG = 0x701,
@@ -98,6 +100,7 @@ namespace KPT.Parser
             { Opcode.U_00C, 2 },
             { Opcode.U_00F, 2 },
             { Opcode.U_01E, 2 }, // educated guess
+            { Opcode.U_0B4, 2 }, // eye balled so not 100% confirmed
             { Opcode.U_03C, 2 },
 
             { Opcode.U_100, 2 }, // educated guess
@@ -139,6 +142,7 @@ namespace KPT.Parser
             { Opcode.U_407, 2 },
 
             { Opcode.U_601, 8 },
+            { Opcode.U_602, 8 }, // eye balled so not 100% confirmed
             { Opcode.U_603, 2 },
 
             { Opcode.PLAY_INTERRUPT, 6 }, // short opcode, short videofile, short unknown
@@ -153,6 +157,7 @@ namespace KPT.Parser
             { Opcode.U_00C, typeof(InstructionBox) },
             { Opcode.U_00F, typeof(InstructionBox) },
             { Opcode.U_01E, typeof(InstructionBox) },
+            { Opcode.U_0B4, typeof(InstructionBox) },
             { Opcode.U_03C, typeof(InstructionBox) },
 
             { Opcode.U_100, typeof(InstructionBox) },
@@ -203,6 +208,7 @@ namespace KPT.Parser
             { Opcode.SHOW_IMAGE, typeof(ShowImage) }, // a tentative name
 
             { Opcode.U_601, typeof(InstructionBox) },
+            { Opcode.U_602, typeof(InstructionBox) },
             { Opcode.U_603, typeof(InstructionBox) },
 
             { Opcode.CHOICE_DIALOG, typeof(ChoiceDialog) },
