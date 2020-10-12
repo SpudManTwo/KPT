@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
@@ -41,12 +42,15 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.label4 = new System.Windows.Forms.Label();
             this.EasyPatchButton = new System.Windows.Forms.Button();
+            this.developerFunctions = new System.Windows.Forms.GroupBox();
+            this.chkShowDev = new System.Windows.Forms.CheckBox();
             this.menuStrip1.SuspendLayout();
+            this.developerFunctions.SuspendLayout();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(46, 69);
+            this.button1.Location = new System.Drawing.Point(6, 26);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(147, 23);
             this.button1.TabIndex = 0;
@@ -56,7 +60,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(46, 137);
+            this.button2.Location = new System.Drawing.Point(6, 65);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(147, 23);
             this.button2.TabIndex = 1;
@@ -70,7 +74,7 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(46, 204);
+            this.button3.Location = new System.Drawing.Point(6, 106);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(147, 23);
             this.button3.TabIndex = 2;
@@ -81,7 +85,7 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(222, 74);
+            this.label1.Location = new System.Drawing.Point(182, 31);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(121, 13);
             this.label1.TabIndex = 3;
@@ -90,7 +94,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(222, 142);
+            this.label2.Location = new System.Drawing.Point(182, 65);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(137, 13);
             this.label2.TabIndex = 4;
@@ -99,7 +103,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(222, 209);
+            this.label3.Location = new System.Drawing.Point(182, 111);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(200, 13);
             this.label3.TabIndex = 5;
@@ -126,14 +130,14 @@
             // aboutToolStripMenuItem
             // 
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(222, 261);
+            this.label4.Location = new System.Drawing.Point(222, 59);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(225, 13);
             this.label4.TabIndex = 8;
@@ -141,7 +145,7 @@
             // 
             // EasyPatchButton
             // 
-            this.EasyPatchButton.Location = new System.Drawing.Point(46, 256);
+            this.EasyPatchButton.Location = new System.Drawing.Point(46, 54);
             this.EasyPatchButton.Name = "EasyPatchButton";
             this.EasyPatchButton.Size = new System.Drawing.Size(147, 23);
             this.EasyPatchButton.TabIndex = 7;
@@ -149,25 +153,51 @@
             this.EasyPatchButton.UseVisualStyleBackColor = true;
             this.EasyPatchButton.Click += new System.EventHandler(this.EasyPatchButton_Click);
             // 
+            // developerFunctions
+            // 
+            this.developerFunctions.Controls.Add(this.button2);
+            this.developerFunctions.Controls.Add(this.button1);
+            this.developerFunctions.Controls.Add(this.button3);
+            this.developerFunctions.Controls.Add(this.label3);
+            this.developerFunctions.Controls.Add(this.label1);
+            this.developerFunctions.Controls.Add(this.label2);
+            this.developerFunctions.Location = new System.Drawing.Point(46, 143);
+            this.developerFunctions.Name = "developerFunctions";
+            this.developerFunctions.Size = new System.Drawing.Size(426, 136);
+            this.developerFunctions.TabIndex = 9;
+            this.developerFunctions.TabStop = false;
+            this.developerFunctions.Text = "Developer Functions";
+            this.developerFunctions.Visible = false;
+            // 
+            // chkShowDev
+            // 
+            this.chkShowDev.AutoSize = true;
+            this.chkShowDev.Location = new System.Drawing.Point(46, 101);
+            this.chkShowDev.Name = "chkShowDev";
+            this.chkShowDev.Size = new System.Drawing.Size(144, 17);
+            this.chkShowDev.TabIndex = 10;
+            this.chkShowDev.Text = "Show Developer Options";
+            this.chkShowDev.UseVisualStyleBackColor = true;
+            this.chkShowDev.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(558, 291);
+            this.Controls.Add(this.chkShowDev);
+            this.Controls.Add(this.developerFunctions);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.EasyPatchButton);
-            this.Controls.Add(this.label3);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "S-KPT";
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.developerFunctions.ResumeLayout(false);
+            this.developerFunctions.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -188,6 +218,8 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Button EasyPatchButton;
+        private System.Windows.Forms.GroupBox developerFunctions;
+        private System.Windows.Forms.CheckBox chkShowDev;
     }
 }
 

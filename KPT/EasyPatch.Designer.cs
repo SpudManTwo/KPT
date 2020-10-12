@@ -30,6 +30,7 @@ namespace KPT
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(EasyPatch));
             this.txtIsoPath = new System.Windows.Forms.TextBox();
             this.lblIsoPath = new System.Windows.Forms.Label();
             this.btnIsoPath = new System.Windows.Forms.Button();
@@ -199,6 +200,7 @@ namespace KPT
             this.Controls.Add(this.btnIsoPath);
             this.Controls.Add(this.lblIsoPath);
             this.Controls.Add(this.txtIsoPath);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EasyPatch";
             this.Text = "Easy Patch";
             this.Load += new System.EventHandler(this.EasyPatch_Load);

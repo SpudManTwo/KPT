@@ -28,9 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProjectForm));
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label6 = new System.Windows.Forms.Label();
+            this.button6 = new System.Windows.Forms.Button();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -38,6 +41,8 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.label7 = new System.Windows.Forms.Label();
+            this.button7 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.button3 = new System.Windows.Forms.Button();
@@ -45,10 +50,6 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.button6 = new System.Windows.Forms.Button();
-            this.label6 = new System.Windows.Forms.Label();
-            this.button7 = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabPage2.SuspendLayout();
@@ -86,6 +87,25 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Unpacking";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(385, 256);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(192, 13);
+            this.label6.TabIndex = 15;
+            this.label6.Text = "Extract images from decompressed files";
+            // 
+            // button6
+            // 
+            this.button6.Location = new System.Drawing.Point(229, 251);
+            this.button6.Name = "button6";
+            this.button6.Size = new System.Drawing.Size(150, 23);
+            this.button6.TabIndex = 14;
+            this.button6.Text = "Extract Images";
+            this.button6.UseVisualStyleBackColor = true;
+            this.button6.Click += new System.EventHandler(this.DumpImages_Click);
             // 
             // label3
             // 
@@ -160,6 +180,25 @@
             this.tabPage2.Text = "Repacking";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(393, 250);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(227, 13);
+            this.label7.TabIndex = 15;
+            this.label7.Text = "Readd extracted images to decompressed files";
+            // 
+            // button7
+            // 
+            this.button7.Location = new System.Drawing.Point(237, 245);
+            this.button7.Name = "button7";
+            this.button7.Size = new System.Drawing.Size(150, 23);
+            this.button7.TabIndex = 14;
+            this.button7.Text = "Load Images";
+            this.button7.UseVisualStyleBackColor = true;
+            this.button7.Click += new System.EventHandler(this.LoadImages_Click);
+            // 
             // label5
             // 
             this.label5.AutoSize = true;
@@ -223,44 +262,6 @@
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // button6
-            // 
-            this.button6.Location = new System.Drawing.Point(229, 251);
-            this.button6.Name = "button6";
-            this.button6.Size = new System.Drawing.Size(150, 23);
-            this.button6.TabIndex = 14;
-            this.button6.Text = "Extract Images";
-            this.button6.UseVisualStyleBackColor = true;
-            this.button6.Click += new System.EventHandler(this.DumpImages_Click);
-            // 
-            // label6
-            // 
-            this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(385, 256);
-            this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(192, 13);
-            this.label6.TabIndex = 15;
-            this.label6.Text = "Extract images from decompressed files";
-            // 
-            // button7
-            // 
-            this.button7.Location = new System.Drawing.Point(237, 245);
-            this.button7.Name = "button7";
-            this.button7.Size = new System.Drawing.Size(150, 23);
-            this.button7.TabIndex = 14;
-            this.button7.Text = "Load Images";
-            this.button7.UseVisualStyleBackColor = true;
-            this.button7.Click += new System.EventHandler(this.LoadImages_Click);
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(393, 250);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(227, 13);
-            this.label7.TabIndex = 15;
-            this.label7.Text = "Readd extracted images to decompressed files";
-            // 
             // ProjectForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -268,6 +269,7 @@
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.menuStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "ProjectForm";
             this.Text = "ProjectForm";
