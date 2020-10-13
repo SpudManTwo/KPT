@@ -125,7 +125,7 @@ namespace KPT
             txtPatchOutputProcess.AppendText("Enumerating Patch Files...\n");
             txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
             txtPatchOutputProcess.ScrollToCaret();
-            IEnumerable<ZipArchiveEntry> prebuiltFiles = patchDirectory.Entries.Where(patchEntry => patchEntry.Name.EndsWith(".cpk") || patchEntry.Name.EndsWith(".SFO"));
+            IEnumerable<ZipArchiveEntry> prebuiltFiles = patchDirectory.Entries.Where(patchEntry => patchEntry.Name.EndsWith(".cpk") || patchEntry.Name.EndsWith(".SFO") || patchEntry.Name.EndsWith(".BIN"));
             txtPatchOutputProcess.AppendText($"{prebuiltFiles.Count()} + files found.\n");
             txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
             txtPatchOutputProcess.ScrollToCaret();
