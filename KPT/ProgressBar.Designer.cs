@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgressBar));
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
@@ -56,6 +57,7 @@
             this.ClientSize = new System.Drawing.Size(555, 167);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.progressBar1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "ProgressBar";
             this.Text = "ProgressBar";
             this.Load += new System.EventHandler(this.ProgressBar_Load);
