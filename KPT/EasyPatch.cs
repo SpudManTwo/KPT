@@ -5,7 +5,6 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Timers;
 using System.Windows.Forms;
@@ -78,13 +77,13 @@ namespace KPT
                 return;
             }
 
-            if (txtPatchPath.Text == "" || !File.Exists(txtPatchPath.Text))
+            if (txtOutputPath.Text == "")
             {
                 btnPatch.Enabled = false;
                 return;
             }
 
-            if (txtOutputPath.Text == "")
+            if (txtPatchPath.Enabled && (txtPatchPath.Text == "" || !File.Exists(txtPatchPath.Text)))
             {
                 btnPatch.Enabled = false;
                 return;
@@ -113,7 +112,15 @@ namespace KPT
 
         private async Task PatchGame()
         {
-            ZipArchive patchDirectory = ZipFile.OpenRead(txtPatchPath.Text);
+            ZipArchive patchDirectory = null;
+            if (txtPatchPath.Enabled)
+            {
+                patchDirectory = ZipFile.OpenRead(txtPatchPath.Text);
+            }
+            else
+            {
+                patchDirectory = ZipFile.OpenRead(AppDomain.CurrentDomain.BaseDirectory + "Libraries\\Patch\\PrePatchedFiles.kpt");
+            }
 
             if (File.Exists(txtOutputPath.Text))
             {
@@ -125,7 +132,7 @@ namespace KPT
             txtPatchOutputProcess.AppendText("Enumerating Patch Files...\n");
             txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
             txtPatchOutputProcess.ScrollToCaret();
-            IEnumerable<ZipArchiveEntry> prebuiltFiles = patchDirectory.Entries.Where(patchEntry => patchEntry.Name.EndsWith(".cpk") || patchEntry.Name.EndsWith(".SFO") || patchEntry.Name.EndsWith(".BIN"));
+            IEnumerable<ZipArchiveEntry> prebuiltFiles = patchDirectory.Entries.Where(patchEntry => patchEntry.Name.EndsWith(".cpk") || patchEntry.Name.EndsWith(".SFO") || patchEntry.Name.EndsWith(".BIN") || patchEntry.Name.EndsWith(".PNG"));
             txtPatchOutputProcess.AppendText($"{prebuiltFiles.Count()} + files found.\n");
             txtPatchOutputProcess.SelectionStart = txtPatchOutputProcess.Text.Length;
             txtPatchOutputProcess.ScrollToCaret();
@@ -409,6 +416,16 @@ namespace KPT
         private void EasyPatch_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
+            lblPatchPath.Visible = !lblPatchPath.Visible;
+            lblPatchPath.Enabled = !lblPatchPath.Enabled;
+            txtPatchPath.Visible = !txtPatchPath.Visible;
+            txtPatchPath.Enabled = !txtPatchPath.Enabled;
+            btnPatchPath.Visible = !btnPatchPath.Visible;
+            btnPatchPath.Enabled = !btnPatchPath.Enabled;
         }
     }
 }

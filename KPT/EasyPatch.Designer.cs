@@ -48,6 +48,7 @@ namespace KPT
             this.dlgPatchPath = new System.Windows.Forms.OpenFileDialog();
             this.dlgOutputPath = new System.Windows.Forms.SaveFileDialog();
             this.txtPatchOutputProcess = new System.Windows.Forms.RichTextBox();
+            this.chkAdditional = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // txtIsoPath
@@ -97,36 +98,42 @@ namespace KPT
             // 
             // btnPatchPath
             // 
-            this.btnPatchPath.Location = new System.Drawing.Point(686, 147);
+            this.btnPatchPath.Enabled = false;
+            this.btnPatchPath.Location = new System.Drawing.Point(686, 530);
             this.btnPatchPath.Name = "btnPatchPath";
             this.btnPatchPath.Size = new System.Drawing.Size(88, 23);
             this.btnPatchPath.TabIndex = 4;
             this.btnPatchPath.Text = "Select KPT";
             this.btnPatchPath.UseVisualStyleBackColor = true;
+            this.btnPatchPath.Visible = false;
             this.btnPatchPath.Click += new System.EventHandler(this.btnPatchPath_Click);
             // 
             // lblPatchPath
             // 
             this.lblPatchPath.AutoSize = true;
+            this.lblPatchPath.Enabled = false;
             this.lblPatchPath.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblPatchPath.Location = new System.Drawing.Point(12, 151);
+            this.lblPatchPath.Location = new System.Drawing.Point(9, 534);
             this.lblPatchPath.Name = "lblPatchPath";
             this.lblPatchPath.Size = new System.Drawing.Size(215, 16);
             this.lblPatchPath.TabIndex = 6;
             this.lblPatchPath.Text = "Path To Kokoro Connect Patch File";
+            this.lblPatchPath.Visible = false;
             // 
             // txtPatchPath
             // 
-            this.txtPatchPath.Location = new System.Drawing.Point(233, 150);
+            this.txtPatchPath.Enabled = false;
+            this.txtPatchPath.Location = new System.Drawing.Point(233, 533);
             this.txtPatchPath.Name = "txtPatchPath";
             this.txtPatchPath.Size = new System.Drawing.Size(429, 20);
             this.txtPatchPath.TabIndex = 3;
+            this.txtPatchPath.Visible = false;
             this.txtPatchPath.TextChanged += new System.EventHandler(this.ValidateForm);
             // 
             // lblOutput
             // 
             this.lblOutput.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, ((System.Drawing.FontStyle)((System.Drawing.FontStyle.Bold | System.Drawing.FontStyle.Underline))), System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOutput.Location = new System.Drawing.Point(9, 201);
+            this.lblOutput.Location = new System.Drawing.Point(9, 116);
             this.lblOutput.Name = "lblOutput";
             this.lblOutput.Size = new System.Drawing.Size(765, 36);
             this.lblOutput.TabIndex = 8;
@@ -135,7 +142,7 @@ namespace KPT
             // 
             // btnOutputPath
             // 
-            this.btnOutputPath.Location = new System.Drawing.Point(686, 267);
+            this.btnOutputPath.Location = new System.Drawing.Point(686, 182);
             this.btnOutputPath.Name = "btnOutputPath";
             this.btnOutputPath.Size = new System.Drawing.Size(88, 23);
             this.btnOutputPath.TabIndex = 6;
@@ -147,7 +154,7 @@ namespace KPT
             // 
             this.lblOutputFile.AutoSize = true;
             this.lblOutputFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblOutputFile.Location = new System.Drawing.Point(12, 271);
+            this.lblOutputFile.Location = new System.Drawing.Point(12, 186);
             this.lblOutputFile.Name = "lblOutputFile";
             this.lblOutputFile.Size = new System.Drawing.Size(101, 16);
             this.lblOutputFile.TabIndex = 10;
@@ -155,7 +162,7 @@ namespace KPT
             // 
             // txtOutputPath
             // 
-            this.txtOutputPath.Location = new System.Drawing.Point(233, 270);
+            this.txtOutputPath.Location = new System.Drawing.Point(233, 185);
             this.txtOutputPath.Name = "txtOutputPath";
             this.txtOutputPath.Size = new System.Drawing.Size(429, 20);
             this.txtOutputPath.TabIndex = 5;
@@ -174,18 +181,30 @@ namespace KPT
             // 
             // txtPatchOutputProcess
             // 
-            this.txtPatchOutputProcess.Location = new System.Drawing.Point(12, 302);
+            this.txtPatchOutputProcess.Location = new System.Drawing.Point(12, 217);
             this.txtPatchOutputProcess.Name = "txtPatchOutputProcess";
             this.txtPatchOutputProcess.ReadOnly = true;
             this.txtPatchOutputProcess.Size = new System.Drawing.Size(762, 259);
             this.txtPatchOutputProcess.TabIndex = 11;
             this.txtPatchOutputProcess.Text = "";
             // 
+            // chkAdditional
+            // 
+            this.chkAdditional.AutoSize = true;
+            this.chkAdditional.Location = new System.Drawing.Point(12, 496);
+            this.chkAdditional.Name = "chkAdditional";
+            this.chkAdditional.Size = new System.Drawing.Size(141, 17);
+            this.chkAdditional.TabIndex = 12;
+            this.chkAdditional.Text = "Show Additional Options";
+            this.chkAdditional.UseVisualStyleBackColor = true;
+            this.chkAdditional.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // EasyPatch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 618);
+            this.Controls.Add(this.chkAdditional);
             this.Controls.Add(this.txtPatchOutputProcess);
             this.Controls.Add(this.btnPatch);
             this.Controls.Add(this.btnOutputPath);
@@ -200,7 +219,6 @@ namespace KPT
             this.Controls.Add(this.btnIsoPath);
             this.Controls.Add(this.lblIsoPath);
             this.Controls.Add(this.txtIsoPath);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "EasyPatch";
             this.Text = "Easy Patch";
             this.Load += new System.EventHandler(this.EasyPatch_Load);
@@ -232,5 +250,6 @@ namespace KPT
         private Task patchTask;
         private string logFilePath;
         private System.Windows.Forms.RichTextBox txtPatchOutputProcess;
+        private System.Windows.Forms.CheckBox chkAdditional;
     }
 }
