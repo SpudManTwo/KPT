@@ -173,6 +173,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <None Include="Libraries\Patch\PrePatchedFiles.kpt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
     <None Include="Libraries\UMD-ReplaceK\UMDReplaceK.deps.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
