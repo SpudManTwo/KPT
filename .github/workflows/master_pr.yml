@@ -4,6 +4,9 @@ on:
   pull_request:
     branches: [ master ]
 
+env:
+  ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+
 jobs:
   build:
     runs-on: windows-2019

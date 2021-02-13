@@ -7,9 +7,10 @@ It is possible, but not advisable, to use this tool to patch other PSP ISOs. Thi
 
 ## Prerequisites
 
-* To run the patcher, you must have [Microsoft .NET Framework 4.6.1 Runtime](https://dotnet.microsoft.com/download/dotnet-framework/net461) installed
-
-* The [latest English patch](https://github.com/SpudManTwo/KPT/releases) (look for the .kpt file)
+* To run the patcher, you must have the following installed. Don't worry these are all real licensed products from Microsoft they decided needed to be 3 separate things.
+ - [Microsoft .NET Framework 4.6.1 Runtime](https://dotnet.microsoft.com/download/dotnet-framework/net461)
+ - [Microsoft .NET 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0)
+ - [Microsoft .NET 3.1 Runtime](https://dotnet.microsoft.com/download/dotnet/3.1/runtime/)
 
 * A legitimate *Kokoro Connect: Yochi Random* ISO
 
@@ -20,25 +21,19 @@ It is possible, but not advisable, to use this tool to patch other PSP ISOs. Thi
 
 2. Extract the .zip archive into wherever you'd like to store the patcher. You can delete the patcher after you've finished patching your ISO.
 
-3. Download and extract all the contents of latest version of the English patch, into the *same folder* as S-KPT Patcher.
-
-
 ## Usage
 
 1. Start S-KPT Patcher by launching KPT.exe from the folder where you extracted the patcher. Your antivirus may throw up a flag, but ask it to trust the patcher.
 
 2. Click the "Easy Patch" Button.
 
-3. Select the path to the Kokoro Connect Yochi Random ISO file, the path to the English patch (look for a .kpt file), and the folder where you would like the patched ISO contents to be placed in the next dialog box.
+3. Select the path to the Kokoro Connect Yochi Random ISO file and where you would like the patched ISO contents to be placed in the next dialog box.
 
 4. The patcher will unpack the ISO's contents and replace them with the English patch. It will NOT overwrite your original ISO copy; the Japanese ISO will still be there after the new patched one is created.
 
 5. Wait a few seconds while the patcher does the rest of the work.
 
 6. When it is complete, you may close the patcher.
-
-7. (optional) If you'd like to pack the unpacked and patched ISO contents into an .iso, .cso, or similiar image, then use a tool such as (UMDGen)[https://umdgen.en.lo4d.com/windows] to pack the patched ISO contents into a single ISO file.
-
 
 ## Developers Only
 
