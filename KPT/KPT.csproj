@@ -211,7 +211,9 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Content Include="KPTIcon.ico" />
+    <Content Include="KPTIcon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Libraries\UMD-ReplaceK\UMDReplaceK.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
