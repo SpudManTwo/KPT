@@ -7,10 +7,9 @@ It is possible, but not advisable, to use this tool to patch other PSP ISOs. Thi
 
 ## Prerequisites
 
-* To run the patcher, you must have the following installed. Don't worry these are all real licensed products from Microsoft they decided needed to be 3 separate things.
- - [Microsoft .NET Framework 4.6.1 Runtime](https://dotnet.microsoft.com/download/dotnet-framework/net461)
- - [Microsoft .NET 5 SDK](https://dotnet.microsoft.com/download/dotnet/5.0)
- - [Microsoft .NET 3.1 Runtime](https://dotnet.microsoft.com/download/dotnet/3.1/runtime/)
+* To run the patcher, you must have the following installed. Don't worry these are all real licensed products from Microsoft they decided needed to be 2 separate things.
+ - [Microsoft .NET Framework 4.8 Runtime](https://dotnet.microsoft.com/download/dotnet-framework/net48)
+ - [Microsoft .NET 6 SDK](https://dotnet.microsoft.com/download/dotnet/6.0)
 
 * A legitimate *Kokoro Connect: Yochi Random* ISO
 
